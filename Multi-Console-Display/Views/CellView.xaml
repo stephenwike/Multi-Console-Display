@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="Multi_Console_Display.Views.CellView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:Multi_Console_Display.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <UserControl.Resources>
+        <converters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
+    </UserControl.Resources>
+
+    <Grid x:Name="MainPanel">
+        <Border
+            BorderThickness="2"
+            BorderBrush="{Binding BorderColor,
+                RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}},
+                Converter={StaticResource ColorToBrushConverter},
+                FallbackValue=#FF000000}">
+
+            <Border.Style>
+                <Style>
+                    <Setter Property="Border.Background" Value="{Binding Path=BackgroundColor}"/>
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Cell.State}" Value="False">
+                            <Setter Property="Border.Background"
+                      Value="{Binding StartColor,
+                              RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}},
+                              Converter={StaticResource ColorToBrushConverter},
+                              FallbackValue=#FF40FF40}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=Cell.State}" Value="True">
+                            <Setter Property="Border.Background"
+                      Value="{Binding FinishColor,
+                              RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}},
+                              Converter={StaticResource ColorToBrushConverter},
+                              FallbackValue=#FFFF4040}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+
+            <Border.InputBindings>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding ChangeCellStateCommand}"/>
+                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ChangeCellStateCommand}"/>
+            </Border.InputBindings>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0"
+                        BorderBrush="Black"
+                        BorderThickness="1">
+                    <TextBlock 
+                           Text="{Binding Path=CellTitle, Mode=OneTime}"
+                           Background="{Binding Path=FontColor}"
+                           Foreground="{Binding Path=BackgroundColor}"
+                           FontSize="13"/>
+                </Border>
+                
+                <TextBlock Grid.Row="1" 
+                           Text="{Binding Path=CellTextBox, Mode=TwoWay}"
+                           Background="{Binding Path=BackgroundColor}"
+                           Foreground="{Binding Path=FontColor}"
+                           FontSize="12"/>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Column="0" 
+                             Name = "txtInputName"
+                             Text="{Binding Path=CellInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                             IsEnabled="{Binding Path=HasInputEvent}" 
+                             Visibility="{Binding Path=IsVisible}"
+                             Foreground="{Binding Path=FontColor}"
+                             Background="{Binding Path=BackgroundColor}"
+                             BorderThickness="0">
+                        <TextBox.InputBindings>
+                            <KeyBinding Command="{Binding EnterKeyCommand}" Key="Enter"/>
+                            <KeyBinding Command="{Binding UpKeyCommand}" Key="Up"/>
+                            <KeyBinding Command="{Binding DownKeyCommand}" Key="Down"/>
+                        </TextBox.InputBindings>
+                    </TextBox>
+                </Grid>
+            </Grid>
+
+        </Border>
+    </Grid>
+</UserControl>
