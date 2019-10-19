@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace Project_Console_Driver
@@ -11,62 +10,51 @@ namespace Project_Console_Driver
         private Process _process;
         private ConsoleInputWriter _consoleInputWriter;
 
-        public ConsoleDriver(ConsoleDriverConfiguration config)
+        public ConsoleDriver(ConsoleConfiguration config)
         {
             _process = new Process();
 
             _startInfo = new ProcessStartInfo();
-            _startInfo.FileName = config.Exe;
+            _startInfo.FileName = config.FileName;
             _startInfo.Arguments = config.Args;
             _startInfo.UseShellExecute = false;
-            _startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-
-            _startInfo.RedirectStandardError = true;
+            _startInfo.CreateNoWindow = true;
         }
 
         public void OutputData(DataReceivedEventHandler handler)
         {
             _startInfo.RedirectStandardOutput = true;
+            _startInfo.RedirectStandardError = true;
             _process.OutputDataReceived += handler;
+            _process.ErrorDataReceived += handler;
         }
 
         public async Task RunAsync()
         {
             await Task.Run(() =>
             {
-                _process.StartInfo = _startInfo;
+                try
+                {
+                    _process.StartInfo = _startInfo;
 
                 _process.EnableRaisingEvents = true;
                 _process.Start();
 
-                // process.OutputDataReceived += (sender, args) => Display(args.Data);
-                _process.ErrorDataReceived += (sender, args) => DisplayError(args.Data);
-                _process.Exited += (sender, args) => Exit(args);
-                // process.Exited
+                _process.Exited += (sender, args) => Exit(sender, args);
 
                 if (_startInfo.RedirectStandardInput)
                 {
                     _consoleInputWriter.SetStream(_process.StandardInput);
                 }
-                
-                // StreamReader sr = process.StandardOutput;
-                // StreamReader se = process.StandardError;
 
-
-                // string output = process.StandardOutput.ReadToEnd();
                 _process.BeginOutputReadLine();
-                // process.WaitForExit();
-
-                // sw.WriteLine("echo Fuck off");
-                // Console.WriteLine(output);
-
-                // process.Close();
-                // sw.Close();
-
-                // Console.WriteLine("\n\nPress any key to exit.");
-                // Console.ReadLine();
-
-                // _process.WaitForExit();
+               
+                    _process.WaitForExit();
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
             });
         }
 
@@ -76,9 +64,16 @@ namespace Project_Console_Driver
             return _consoleInputWriter = new ConsoleInputWriter();
         }
 
-        private void Exit(object data)
+        private void Exit(object sender, object data)
         {
             Console.WriteLine(data);
+            var p = sender as Process;
+            if (p != null)
+            {
+                var exitCode = p.ExitCode;
+                var id = p.Id;
+            }
+
             if (_consoleInputWriter != null)
             {
                 _consoleInputWriter.Dispose();

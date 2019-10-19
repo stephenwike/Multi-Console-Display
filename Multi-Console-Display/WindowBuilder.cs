@@ -1,19 +1,19 @@
-﻿using Multi_Console_Display.Models;
-using Multi_Console_Display.ViewModels;
+﻿using Multi_Console_Display.ViewModels;
+using Project_Console_Driver;
 
 namespace Multi_Console_Display
 {
     internal class WindowBuilder
     {
         private MainWindow _window;
-        private DynamicGridConfig _config;
+        private ConsoleDriverConfiguration _config;
 
         public WindowBuilder()
         {
             _window = new MainWindow();
         }
 
-        public WindowBuilder SetConfig(DynamicGridConfig config)
+        public WindowBuilder SetConfig(ConsoleDriverConfiguration config)
         {
             _config = config;
             return this;

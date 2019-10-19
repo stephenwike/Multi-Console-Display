@@ -15,11 +15,9 @@ namespace Project_Console_Driver.Tests
         [Fact]
         public void Test1()
         {
-            var config = new ConsoleDriverConfiguration()
+            var config = new ConsoleConfiguration()
             {
-                // Exe = "node.exe",
-                // Args = "D://tutorials/RabbitMQ-Tutorials/src/1-hello-world/sender.js"
-                Exe = "cmd.exe",
+                FileName = "cmd.exe",
                 Args = "/C echo Hello World!"
             };
 

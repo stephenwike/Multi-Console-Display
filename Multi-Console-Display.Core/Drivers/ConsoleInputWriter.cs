@@ -9,7 +9,7 @@ namespace Project_Console_Driver
 
         public void WriteLine(object text)
         {
-            if (_streamWriter != null)
+            if (_streamWriter != null && _streamWriter.BaseStream != null)
             {
                 _streamWriter.WriteLine(text);
             }

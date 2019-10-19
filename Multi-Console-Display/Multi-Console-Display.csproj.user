@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartArguments>{"GridHeight":1,"GridWidth":2,"ConsoleConfig":"%24type":"Project_Console_Driver.ConsoleConfiguration[,], Multi-onsole-Display.Core","%24values":[{"FileName":"dotnet.exe","Args":"C:\\\\Dev\\POC.NServiceBus\\src\\POC.NServiceBus.Client\\bin\\Debug\\netcoreapp2.2\\POC.NServiceBus.Client.dll","Title":"NServiceBus Client","SeeInput":true},{"FileName":"dotnet.exe","Args":"C:\\\\Dev\\POC.NServiceBus\\src\\POC.NServiceBus.ServiceA\\bin\\Debug\\netcoreapp2.2\\POC.NServiceBus.ServiceA.dll","Title":"NServiceBus ServiceA","SeeInput":false}]]}}</StartArguments>
+  </PropertyGroup>
+</Project>

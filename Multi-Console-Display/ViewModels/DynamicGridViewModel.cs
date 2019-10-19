@@ -2,23 +2,22 @@
 using System.ComponentModel;
 using System.Windows.Media;
 using Multi_Console_Display.Models;
+using Project_Console_Driver;
 
 namespace Multi_Console_Display.ViewModels
 {
     public class DynamicGridViewModel : BaseNotifyPropertyChanged, IDynamicGridViewModel
     {
-        private CellConfig[,] _cellConfig;
+        private ConsoleDriverConfiguration _consoleConfig;
 
         public DynamicGridViewModel()
         {
             // this.SetDefaultValues();
         }
 
-        public DynamicGridViewModel(DynamicGridConfig config)
+        public DynamicGridViewModel(ConsoleDriverConfiguration config)
         {
-            _cellConfig = config.CellConfig;
-            GridHeight = config.GridHeight;
-            GridWidth = config.GridWidth;  
+            _consoleConfig = config;
         }
 
         #region Initialization and recreating
@@ -35,7 +34,7 @@ namespace Multi_Console_Display.ViewModels
                 var row = new ObservableCollection<ICellViewModel>();
                 for (var posCol = 0; posCol < GridWidth; posCol++)
                 {
-                    var cellViewModel = new CellViewModel(_cellConfig[posRow, posCol]);
+                    var cellViewModel = new CellViewModel(_consoleConfig.ConsoleConfig[posRow, posCol]);
                     row.Add(cellViewModel);
                 }
                 cells.Add(row);

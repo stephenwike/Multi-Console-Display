@@ -35,6 +35,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Json.Net, Version=1.0.16.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Json.Net.1.0.16\lib\netstandard2.0\Json.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\newtonsoft.json\9.0.1\lib\netstandard1.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -62,9 +69,7 @@
     <Compile Include="Converters\OperationGenericConverter.cs" />
     <Compile Include="Converters\ValueGenericConverter.cs" />
     <Compile Include="Models\Cell.cs" />
-    <Compile Include="Models\CellConfig.cs" />
     <Compile Include="Models\DelegateCommand.cs" />
-    <Compile Include="Models\DynamicGridConfig.cs" />
     <Compile Include="MultiConsoleDisplayApp.cs" />
     <Compile Include="ViewModels\BaseNotifyPropertyChanged.cs" />
     <Compile Include="ViewModels\CellViewModel.cs" />
@@ -119,6 +124,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -128,9 +134,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Project-Console-Driver\Project-Console-Driver.csproj">
-      <Project>{6acbf7e8-487e-4c98-b991-92493e6f0e82}</Project>
-      <Name>Project-Console-Driver</Name>
+    <ProjectReference Include="..\Multi-Console-Display.Core\Multi-Console-Display.Core.csproj">
+      <Project>{7D6C5E16-F9A0-47A1-BC39-65AC987576CB}</Project>
+      <Name>Multi-Console-Display.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,4 @@
-﻿using Multi_Console_Display.Models;
+﻿using Project_Console_Driver;
 using System;
 using System.Threading;
 
@@ -6,9 +6,9 @@ namespace Multi_Console_Display
 {
     public class MultiConsoleDisplayApp
     {
-        private DynamicGridConfig _config;
+        private ConsoleDriverConfiguration _config;
 
-        public void Start(DynamicGridConfig config)
+        public void Start(ConsoleDriverConfiguration config)
         {
             _config = config;
             var thread = new Thread(new ThreadStart(DisplayFormThread));

@@ -5,4 +5,8 @@
     <RootNamespace>Project_Console_Driver</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Multi-Console-Display.Core\Multi-Console-Display.Core.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Project-Console-Driver\Project-Console-Driver.csproj" />
+    <ProjectReference Include="..\Project-Console-Driver\Multi-Console-Driver.csproj" />
   </ItemGroup>
 
 </Project>

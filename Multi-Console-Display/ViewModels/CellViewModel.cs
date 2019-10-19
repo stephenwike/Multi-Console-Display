@@ -96,17 +96,11 @@ namespace Multi_Console_Display.ViewModels
             }
         }
 
-        public CellViewModel(CellConfig config)
+        public CellViewModel(ConsoleConfiguration config)
         {
             _cellTitle = config.Title;
 
-            var cd_config = new ConsoleDriverConfiguration()
-            {
-                Exe = config.FileName,
-                Args = config.Args
-            };
-
-            ConsoleDriver driver = new ConsoleDriver(cd_config);
+            ConsoleDriver driver = new ConsoleDriver(config);
 
             driver.OutputData((sender, args) =>
             {
@@ -204,6 +198,9 @@ namespace Multi_Console_Display.ViewModels
         #endregion
 
         public Brush BackgroundColor { get; set; } = Brushes.Black;
-        public Brush FontColor { get; set; } = Brushes.White;
+        public Brush TitleBackgroundColor { get; set; } = Brushes.White;
+        public Brush FontColor { get; set; } = new SolidColorBrush(Color.FromArgb(255, (byte)192, (byte)192, (byte)192));
+        public FontFamily TitleFontFamily { get; set; } = new FontFamily("Times New Roman");
+        public FontFamily TextFontFamily { get; set; } = new FontFamily("Aharoni");
     }
 }

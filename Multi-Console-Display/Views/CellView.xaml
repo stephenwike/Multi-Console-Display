@@ -13,13 +13,13 @@
 
     <Grid x:Name="MainPanel">
         <Border
-            BorderThickness="2"
-            BorderBrush="{Binding BorderColor,
+            BorderThickness="1"
+            BorderBrush="Blue"><!--{Binding BorderColor,
                 RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}},
                 Converter={StaticResource ColorToBrushConverter},
-                FallbackValue=#FF000000}">
+                FallbackValue=#FF000000}">-->
 
-            <Border.Style>
+            <!--<Border.Style>
                 <Style>
                     <Setter Property="Border.Background" Value="{Binding Path=BackgroundColor}"/>
 
@@ -40,7 +40,7 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </Border.Style>
+            </Border.Style>-->
 
             <Border.InputBindings>
                 <MouseBinding MouseAction="LeftClick" Command="{Binding ChangeCellStateCommand}"/>
@@ -56,19 +56,23 @@
 
                 <Border Grid.Row="0"
                         BorderBrush="Black"
-                        BorderThickness="1">
+                        BorderThickness="0">
                     <TextBlock 
                            Text="{Binding Path=CellTitle, Mode=OneTime}"
-                           Background="{Binding Path=FontColor}"
+                           Background="{Binding Path=TitleBackgroundColor}"
                            Foreground="{Binding Path=BackgroundColor}"
-                           FontSize="13"/>
+                           FontSize="13"
+                           FontFamily="{Binding Path=TitleFontFamily}"
+                           Padding="5"/>
                 </Border>
                 
                 <TextBlock Grid.Row="1" 
                            Text="{Binding Path=CellTextBox, Mode=TwoWay}"
                            Background="{Binding Path=BackgroundColor}"
                            Foreground="{Binding Path=FontColor}"
-                           FontSize="12"/>
+                           FontSize="12"
+                           FontFamily="{Binding Path=TextFontFamily}"
+                           Padding="1"/>
 
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
@@ -83,7 +87,8 @@
                              Visibility="{Binding Path=IsVisible}"
                              Foreground="{Binding Path=FontColor}"
                              Background="{Binding Path=BackgroundColor}"
-                             BorderThickness="0">
+                             BorderThickness="0"
+                             Padding="1">
                         <TextBox.InputBindings>
                             <KeyBinding Command="{Binding EnterKeyCommand}" Key="Enter"/>
                             <KeyBinding Command="{Binding UpKeyCommand}" Key="Up"/>
